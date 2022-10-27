@@ -3,6 +3,11 @@ resource "aws_iam_user" "lb" {
   path = "/system/"
 }
 
+resource "aws_iam_user_login_profile" "example" {
+  user                    = aws_iam_user.lb.name
+  password_reset_required = true
+}
+
 resource "aws_iam_user_policy" "lb_ro" {
   name = "valdrin-policy"
   user = aws_iam_user.lb.name
@@ -14,11 +19,18 @@ resource "aws_iam_user_policy" "lb_ro" {
     Statement = [
       {
         Action = [
-          "ec2:Describe*",
+          "ec2:Describe*", "iam:GetAccountPasswordPolicy"
         ]
         Effect   = "Allow"
         Resource = "*"
       },
+      {
+        Action = [
+          "iam:ChangePassword"
+        ]
+        Effect   = "Allow"
+        Resource = aws_iam_user.lb.arn
+      }
     ]
   })
 }
