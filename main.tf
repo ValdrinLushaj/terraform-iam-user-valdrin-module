@@ -19,7 +19,7 @@ resource "aws_iam_user_policy" "lb_ro" {
     Statement = [
       {
         Action = [
-          "ec2:Describe*", "iam:GetAccountPasswordPolicy"
+          "ec2:Describe*", "iam:GetAccountPasswordPolicy", "elasticloadbalancing:DescribeLoadBalancers"
         ]
         Effect   = "Allow"
         Resource = "*"
