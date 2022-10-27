@@ -1,14 +1,10 @@
 resource "aws_iam_user" "lb" {
-  name = "loadbalancer"
+  name = "valdrin-user"
   path = "/system/"
 }
 
-resource "aws_iam_access_key" "lb" {
-  user = aws_iam_user.lb.name
-}
-
 resource "aws_iam_user_policy" "lb_ro" {
-  name = "test"
+  name = "valdrin-policy"
   user = aws_iam_user.lb.name
 
   # Terraform's "jsonencode" function converts a
