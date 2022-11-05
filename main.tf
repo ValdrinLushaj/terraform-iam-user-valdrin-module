@@ -6,6 +6,10 @@ resource "aws_iam_user" "lb" {
 resource "aws_iam_user_login_profile" "example" {
   user                    = aws_iam_user.lb.name
   password_reset_required = true
+
+  lifecycle {
+    ignore_changes = [password_reset_required]
+  }
 }
 
 resource "aws_iam_user_policy" "lb_ro" {
